@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Расписание | Личный архив</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body class="dark-theme">
+    <div class="document-page">
+        
+        <!-- Top Bar: Current Task Title + Theme Toggle -->
+        <div class="top-bar">
+            <h2 class="section-title current-task-title">/// ТЕКУЩАЯ ЗАДАЧА</h2>
+            <button id="theme-toggle" class="theme-toggle">НА СВЕТ</button>
+        </div>
+        
+        <!-- Current Task Container (always visible) -->
+        <section id="current-task-container" class="doc-section current-task-section">
+            <div id="current-task-content"></div>
+        </section>
+
+        <!-- Button to Open Full Schedule Modal -->
+        <div class="schedule-controls">
+            <button id="open-schedule-modal" class="schedule-btn">открыть полное расписание</button>
+        </div>
+
+        <!-- MODAL OVERLAY -->
+        <div id="schedule-modal" class="modal-overlay">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="modal-title">/// ПОЛНОЕ РАСПИСАНИЕ</span>
+                    <button id="close-modal" class="modal-close" aria-label="Закрыть">×</button>
+                </div>
+                <div class="modal-schedule-toggle">
+                    <button id="modal-weekday" class="schedule-btn active">расписание для будней</button>
+                    <button id="modal-weekend" class="schedule-btn">расписание для выходных</button>
+                </div>
+                <div class="modal-timeline-container">
+                    <div class="timeline-container">
+                        <div class="timeline-line"></div>
+                        
+                        <!-- WEEKDAY ITEMS -->
+                        <div class="timeline-item expandable" data-day-type="weekday" data-time-start="06:00" data-time-end="09:00">
+                            <div class="timeline-marker"></div>
+                            <div class="timeline-content">
+                                <span class="timeline-date">06:00–09:00</span>
+                                <span class="timeline-event">УТРЕННИЙ БЛОК</span>
+                                <span class="timeline-note">Подъём, медитация, планирование дня.</span>
+                            </div>
+                            <span class="expand-arrow">▼</span>
+                            <div class="expandable-content">
+                                <div class="np-columns">
+                                    <p><strong>Процедура:</strong> Подъём без повторного засыпания. 10 минут медитации.</p>
+                                    <p><strong>План:</strong> Проверка почты, синхронизация календаря.</p>
+                                    <img src="https://img1.reactor.cc/pics/post/3774-bokarokaku-Hatsune-Miku-Vocaloid-9286395.jpeg" alt="Demo" class="content-image">
+                                    <p><em>Важно:</em> Не открывать соцсети до завершения блока.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-item expandable" data-day-type="weekday" data-time-start="09:00" data-time-end="12:00">
+                            <div class="timeline-marker"></div>
+                            <div class="timeline-content">
+                                <span class="timeline-date">09:00–12:00</span>
+                                <span class="timeline-event">РАБОЧАЯ СЕССИЯ #1</span>
+                                <span class="timeline-note">Глубокая работа над приоритетными задачами.</span>
+                            </div>
+                            <span class="expand-arrow">▼</span>
+                            <div class="expandable-content">
+                                <div class="np-columns">
+                                    <p><strong>Фокус:</strong> Одна ключевая задача без прерываний.</p>
+                                    <p><strong>Метод:</strong> Pomodoro 50/10, отключение уведомлений.</p>
+                                    <img src="https://img1.reactor.cc/pics/post/3774-bokarokaku-Hatsune-Miku-Vocaloid-9286395.jpeg" alt="Demo" class="content-image">
+                                    <p>По завершении — фиксация результата в журнале.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-item non-expandable" data-day-type="weekday" data-time-start="12:00" data-time-end="14:00">
+                            <div class="timeline-marker"></div>
+                            <div class="timeline-content">
+                                <span class="timeline-date">12:00–14:00</span>
+                                <span class="timeline-event">ОБЕД И ОТДЫХ</span>
+                                <span class="timeline-note">Приём пищи, прогулка, перезагрузка. Без рабочих задач.</span>
+                            </div>
+                        </div>
+
+                        <div class="timeline-item expandable" data-day-type="weekday" data-time-start="14:00" data-time-end="18:00">
+                            <div class="timeline-marker"></div>
+                            <div class="timeline-content">
+                                <span class="timeline-date">14:00–18:00</span>
+                                <span class="timeline-event">РАБОЧАЯ СЕССИЯ #2</span>
+                                <span class="timeline-note">Вторичные задачи, коммуникация, документация.</span>
+                            </div>
+                            <span class="expand-arrow">▼</span>
+                            <div class="expandable-content">
+                                <div class="np-columns">
+                                    <p><strong>Задачи:</strong> Ответы на письма, встречи, отчёты.</p>
+                                    <p><strong>Инструменты:</strong> Календарь, трекер задач.</p>
+                                    <img src="https://img1.reactor.cc/pics/post/3774-bokarokaku-Hatsune-Miku-Vocaloid-9286395.jpeg" alt="Demo" class="content-image">
+                                    <p>За 15 минут до конца — подготовка списка на завтра.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-item non-expandable" data-day-type="weekday" data-time-start="18:00" data-time-end="21:00">
+                            <div class="timeline-marker"></div>
+                            <div class="timeline-content">
+                                <span class="timeline-date">18:00–21:00</span>
+                                <span class="timeline-event">ВЕЧЕРНИЙ БЛОК</span>
+                                <span class="timeline-note">Обучение, хобби, подготовка к следующему дню.</span>
+                            </div>
+                        </div>
+
+                        <!-- WEEKEND ITEMS -->
+                        <div class="timeline-item expandable" data-day-type="weekend" data-time-start="08:00" data-time-end="11:00">
+                            <div class="timeline-marker"></div>
+                            <div class="timeline-content">
+                                <span class="timeline-date">08:00–11:00</span>
+                                <span class="timeline-event">СВОБОДНЫЙ ПОДЪЁМ</span>
+                                <span class="timeline-note">Без будильника, медленный старт дня.</span>
+                            </div>
+                            <span class="expand-arrow">▼</span>
+                            <div class="expandable-content">
+                                <div class="np-columns">
+                                    <p><strong>Принцип:</strong> Отказ от жёсткого расписания в первый час.</p>
+                                    <p><strong>Ритуал:</strong> Кофе/чай, лёгкая растяжка, обзор планов.</p>
+                                    <img src="https://img1.reactor.cc/pics/post/3774-bokarokaku-Hatsune-Miku-Vocaloid-9286395.jpeg" alt="Demo" class="content-image">
+                                    <p>Разрешено: долгий завтрак, чтение, музыка.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-item expandable" data-day-type="weekend" data-time-start="11:00" data-time-end="14:00">
+                            <div class="timeline-marker"></div>
+                            <div class="timeline-content">
+                                <span class="timeline-date">11:00–14:00</span>
+                                <span class="timeline-event">АКТИВНЫЙ БЛОК</span>
+                                <span class="timeline-note">Прогулка, спорт, встреча с друзьями.</span>
+                            </div>
+                            <span class="expand-arrow">▼</span>
+                            <div class="expandable-content">
+                                <div class="np-columns">
+                                    <p><strong>Цель:</strong> Физическая активность или социальное взаимодействие.</p>
+                                    <p><strong>Варианты:</strong> Велосипед, парк, кафе, настольные игры.</p>
+                                    <img src="https://img1.reactor.cc/pics/post/3774-bokarokaku-Hatsune-Miku-Vocaloid-9286395.jpeg" alt="Demo" class="content-image">
+                                    <p>Важно: смена обстановки для ментальной перезагрузки.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-item non-expandable" data-day-type="weekend" data-time-start="14:00" data-time-end="17:00">
+                            <div class="timeline-marker"></div>
+                            <div class="timeline-content">
+                                <span class="timeline-date">14:00–17:00</span>
+                                <span class="timeline-event">ТВОРЧЕСКИЙ БЛОК</span>
+                                <span class="timeline-note">Хобби, курс, личный проект без дедлайнов.</span>
+                            </div>
+                        </div>
+
+                        <div class="timeline-item expandable" data-day-type="weekend" data-time-start="20:00" data-time-end="23:50">
+                            <div class="timeline-marker"></div>
+                            <div class="timeline-content">
+                                <span class="timeline-date">17:00–20:00</span>
+                                <span class="timeline-event">АНАЛИЗ НЕДЕЛИ</span>
+                                <span class="timeline-note">Подведение итогов, планирование, рефлексия.</span>
+                            </div>
+                            <span class="expand-arrow">▼</span>
+                            <div class="expandable-content">
+                                <div class="np-columns">
+                                    <img src="https://img1.reactor.cc/pics/post/3774-bokarokaku-Hatsune-Miku-Vocaloid-9286395.jpeg" alt="Demo" class="content-image">
+                                    <p><strong>Этапы:</strong> Что сделано, что нет, почему, как улучшить.</p>
+                                    <p><strong>Инструмент:</strong> Блокнот, шаблон ретроспективы.</p>
+                                    
+                                    <p>Финал: 3 приоритета на предстоящую неделю, зафиксированные письменно.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-item non-expandable" data-day-type="weekend" data-time-start="20:00" data-time-end="23:50">
+                            <div class="timeline-marker"></div>
+                            <div class="timeline-content">
+                                <span class="timeline-date">20:00–23:00</span>
+                                <span class="timeline-event">ВЕЧЕР ОТДЫХА</span>
+                                <span class="timeline-note">Фильм, книга, игра, спокойное завершение дня.</span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- AFFIRMATIONS SECTION -->
+        <section id="affirmations" class="doc-section">
+            <h2 class="section-title">/// АФФИРМАЦИИ</h2>
+            <div class="press-clipping">
+                <div class="clipping-source">ЕЖЕДНЕВНАЯ ПРАКТИКА | УТРО</div>
+                <div class="clipping-headline">ФОКУС НА НАСТОЯЩЕМ</div>
+                <div class="clipping-text">
+                    «Я контролирую своё внимание. Каждая задача — возможность проявить мастерство. 
+                    Я действую осознанно, без спешки и сомнений.»
+                </div>
+            </div>
+            <div class="press-clipping">
+                <div class="clipping-source">ЕЖЕДНЕВНАЯ ПРАКТИКА | ВЕЧЕР</div>
+                <div class="clipping-headline">БЛАГОДАРНОСТЬ И АНАЛИЗ</div>
+                <div class="clipping-text">
+                    «Я отмечаю прогресс, а не только результат. Ошибки — данные для улучшения. 
+                    Я завершаю день с ясностью и спокойствием.»
+                </div>
+            </div>
+        </section>
+
+        <!-- ADDITIONAL INFO BLOCKS -->
+        <section id="additional-info" class="doc-section">
+            <h2 class="section-title">/// ДОПОЛНИТЕЛЬНАЯ ИНФОРМАЦИЯ</h2>
+            <div class="press-clipping">
+                <div class="clipping-source">СПРАВОЧНИК | КОНТАКТЫ</div>
+                <div class="clipping-headline">ЭКСТРЕННЫЕ КАНАЛЫ СВЯЗИ</div>
+                <div class="clipping-text">
+                    При необходимости срочной координации используйте резервные каналы. 
+                    Основная коммуникация — через запланированные интервалы.
+                </div>
+            </div>
+            <div class="press-clipping">
+                <div class="clipping-source">СПРАВОЧНИК | РЕСУРСЫ</div>
+                <div class="clipping-headline">БАЗА ЗНАНИЙ И ШАБЛОНЫ</div>
+                <div class="clipping-text">
+                    Доступ к библиотеке шаблонов отчётов, чек-листов и методических материалов. 
+                    Обновляется еженедельно по пятницам.
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
