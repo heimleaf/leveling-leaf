@@ -420,13 +420,15 @@ body {
 }
 
 /* Responsive */
+/* Убираем мобильные стили для картинок внутри текущей задачи */
 @media (max-width: 768px) {
-    .content-image {
-        float: none;
-        width: 100%;
-        max-width: 100%;
-        margin: 10px 0 15px 0;
+    #current-task-container .content-image {
+        float: left !important;
+        width: 25% !important;
+        max-width: 150px !important;
+        margin: 5px 15px 10px 0 !important;
     }
+}
     
     .expandable-content {
         padding: 0 15px;
