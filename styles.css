@@ -457,12 +457,12 @@ body {
     }
     
     .top-bar {
-        flex-wrap: wrap;
+        flex-wrap: nowrap;
         gap: 8px;
     }
     
     .current-task-title {
-        width: 100%;
+        width: auto;
         margin-bottom: 5px;
     }
 }
