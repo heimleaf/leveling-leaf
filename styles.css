@@ -270,7 +270,7 @@ body {
 .np-columns {
     font-size: 12px;
     line-height: 1.6;
-    text-align: justify;
+    text-align: left;
 }
 
 .np-columns p {
