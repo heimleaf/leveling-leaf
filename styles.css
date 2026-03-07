@@ -466,3 +466,25 @@ body {
         margin-bottom: 5px;
     }
 }
+
+
+/* =============================================================================
+MOBILE IMAGE HANDLING
+============================================================================= */
+@media (max-width: 768px) {
+    
+    /* 1. Скрыть картинки в модальном окне */
+    .modal-overlay .content-image {
+        display: none !important;
+    }
+    
+    /* 2. Сохранить десктопный стиль для картинок в "ТЕКУЩАЯ ЗАДАЧА" */
+    #current-task-container .content-image {
+        float: left !important;
+        width: 25% !important;
+        max-width: 150px !important;
+        margin: 5px 15px 10px 0 !important;
+        display: block !important;
+    }
+    
+}
