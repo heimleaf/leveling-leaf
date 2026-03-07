@@ -1,0 +1,468 @@
+/* =============================================================================
+STYLE: NOIR DETECTIVE OFFICE (STRICT MONOCHROME)
+============================================================================= */
+:root {
+    --color-bg: #0a0a0a;
+    --color-text: #e0e0e0;
+    --color-muted: #a8a8a8;
+    --color-secondary: #666666;
+    --color-border: #333333;
+    --color-highlight: #ffffff;
+    --font-main: 'IBM Plex Mono', monospace;
+    --size-text: 14px;
+}
+
+body.light-theme {
+    --color-bg: #f4f4f4;
+    --color-text: #1a1a1a;
+    --color-muted: #555555;
+    --color-secondary: #888888;
+    --color-border: #cccccc;
+    --color-highlight: #000000;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    font-family: var(--font-main);
+    font-size: var(--size-text);
+    line-height: 1.8;
+    padding: 20px;
+    transition: background-color 0.5s ease, color 0.5s ease;
+    letter-spacing: 0.5px;
+}
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--color-bg); }
+::-webkit-scrollbar-thumb { 
+    background-color: var(--color-secondary); 
+    border-radius: 3px; 
+}
+
+.document-page {
+    max-width: 680px;
+    margin: 0 auto;
+    padding-bottom: 40px;
+}
+
+/* TOP BAR */
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.current-task-title {
+    font-size: 12px;
+    text-transform: uppercase;
+    color: var(--color-secondary);
+    letter-spacing: 2px;
+    margin: 0;
+}
+
+.theme-toggle {
+    background: transparent;
+    border: 1px solid var(--color-secondary);
+    color: var(--color-secondary);
+    font-family: var(--font-main);
+    font-size: 9px;
+    padding: 4px 8px;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+}
+
+.theme-toggle:hover {
+    border-color: var(--color-text);
+    color: var(--color-text);
+}
+
+#current-task-container {
+    margin-bottom: 20px;
+}
+
+/* Current task - no marker, no hover */
+.current-task-section .timeline-item {
+    border-left: none !important;
+    margin-left: 0 !important;
+    cursor: default !important;
+}
+
+.current-task-section .timeline-marker {
+    display: none !important;
+}
+
+.current-task-section .timeline-content {
+    padding-left: 0 !important;
+}
+
+.current-task-section .timeline-item:hover {
+    border-left-color: transparent !important;
+    background: transparent !important;
+}
+
+/* Schedule Controls */
+.schedule-controls {
+    margin-bottom: 25px;
+}
+
+.schedule-btn {
+    width: 100%;
+    background: transparent;
+    border: 1px solid var(--color-border);
+    color: var(--color-secondary);
+    font-family: var(--font-main);
+    font-size: 10px;
+    padding: 10px 12px;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.schedule-btn:hover,
+.schedule-btn.active {
+    border-color: var(--color-text);
+    color: var(--color-text);
+    background: rgba(128, 128, 128, 0.05);
+}
+
+/* Sections */
+.doc-section { margin-bottom: 35px; }
+
+.section-title {
+    font-size: 12px;
+    text-transform: uppercase;
+    color: var(--color-secondary);
+    margin-bottom: 18px;
+    letter-spacing: 2px;
+    padding-left: 10px;
+}
+
+/* Timeline */
+.timeline-container {
+    position: relative;
+    padding-left: 30px;
+    margin: 15px 0;
+}
+
+.timeline-line {
+    position: absolute;
+    left: 6px;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background-color: var(--color-border);
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 20px;
+    border-left: 2px solid transparent;
+    transition: border-color 0.3s ease, background 0.3s ease;
+    cursor: pointer;
+}
+
+.timeline-item:hover {
+    border-left-color: var(--color-muted);
+}
+
+/* Marker: line passes through opposite corners */
+.timeline-marker {
+    position: absolute;
+    left: -30px;
+    top: 5px;
+    width: 9px;
+    height: 9px;
+    background-color: var(--color-bg);
+    border: 1px solid var(--color-secondary);
+    transform: rotate(45deg);
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+
+.timeline-item:hover .timeline-marker {
+    background-color: var(--color-text);
+    border-color: var(--color-text);
+}
+
+.timeline-content {
+    padding-left: 15px;
+}
+
+.timeline-date {
+    display: block;
+    font-size: 10px;
+    color: var(--color-secondary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+}
+
+.timeline-event {
+    display: block;
+    font-size: 13px;
+    color: var(--color-text);
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+}
+
+.timeline-note {
+    display: block;
+    font-size: 12px;
+    color: var(--color-muted);
+    line-height: 1.6;
+}
+
+/* Expand arrow indicator */
+.expand-arrow {
+    position: absolute;
+    right: 15px;           /* ← положение справа */
+    top: 15px;          /* ← вертикальное положение */
+    font-size: 16px;    /* ← размер треугольника */
+    color: var(--color-secondary);
+    transition: transform 0.3s ease, color 0.3s ease;
+    pointer-events: none;
+}
+
+.timeline-item.expanded .expand-arrow {
+    transform: rotate(180deg);
+    color: var(--color-text);
+}
+
+/* Non-expandable items */
+.timeline-item.non-expandable {
+    cursor: default;
+}
+/*
+.timeline-item.non-expandable:hover {
+    border-left-color: transparent;
+}*/
+
+.timeline-item.non-expandable .expand-arrow {
+    display: none;
+}
+
+/* Expandable Content */
+.expandable-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease, padding 0.4s ease;
+    padding: 0 15px 0 45px;
+    background: rgba(128, 128, 128, 0.02);
+}
+
+.timeline-item.expanded .expandable-content {
+    max-height: 1200px;
+    padding: 15px 15px 15px 45px;
+}
+
+.np-columns {
+    font-size: 12px;
+    line-height: 1.6;
+    text-align: justify;
+}
+
+.np-columns p {
+    margin-bottom: 10px;
+}
+
+/* Image - right float, top aligned with timeline-event */
+.content-image {
+    float: right;
+    width: 25%;
+    max-width: 150px;
+    margin: -3px 0 10px 15px;
+    border: 1px solid var(--color-border);
+    display: block;
+}
+
+.content-image + p {
+    margin-top: 0;
+}
+
+.expandable-content img:not([src]),
+.expandable-content img[src=""] {
+    display: none;
+}
+
+/* Highlight for current slot */
+.timeline-item.current-slot {
+    border-left-color: #ffd700 !important;
+    background: rgba(255, 215, 0, 0.08) !important;
+}
+
+.timeline-item.current-slot .timeline-marker {
+    background-color: #ffd700;
+    border-color: #ffd700;
+}
+
+.timeline-item.hidden {
+    display: none;
+}
+
+.text-highlight { color: var(--color-highlight); font-weight: 600; }
+.text-muted { color: var(--color-muted); }
+
+/* Press Clippings */
+.press-clipping {
+    border: 1px solid var(--color-secondary);
+    padding: 15px;
+    margin-bottom: 15px;
+    background-color: var(--color-bg);
+}
+
+.clipping-source {
+    font-size: 9px;
+    color: var(--color-secondary);
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--color-border);
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+}
+
+.clipping-headline {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--color-text);
+    margin-bottom: 8px;
+    text-transform: uppercase;
+}
+
+.clipping-text {
+    font-size: 12px;
+    color: var(--color-secondary);
+    line-height: 1.5;
+}
+
+/* MODAL */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.108);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: 20px;
+}
+
+.modal-content {
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    max-width: 700px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    border-bottom: 1px solid var(--color-border);
+    position: sticky;
+    top: 0;
+    background: var(--color-bg);
+    z-index: 10;
+}
+
+.modal-title {
+    font-size: 12px;
+    text-transform: uppercase;
+    color: var(--color-secondary);
+    letter-spacing: 2px;
+}
+
+.modal-close {
+    background: transparent;
+    border: none;
+    color: var(--color-secondary);
+    font-size: 24px;
+    cursor: pointer;
+    line-height: 1;
+    padding: 0 5px;
+}
+
+.modal-close:hover { color: var(--color-text); }
+
+.modal-schedule-toggle {
+    display: flex;
+    gap: 5px;
+    padding: 10px 20px;
+    border-bottom: 1px solid var(--color-border);
+    background: rgba(128, 128, 128, 0.03);
+}
+
+.modal-schedule-toggle .schedule-btn {
+    flex: 1;
+    padding: 8px;
+    font-size: 9px;
+}
+
+.modal-timeline-container {
+    padding: 20px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .content-image {
+        float: none;
+        width: 100%;
+        max-width: 100%;
+        margin: 10px 0 15px 0;
+    }
+    
+    .expandable-content {
+        padding: 0 15px;
+    }
+    
+    .timeline-item.expanded .expandable-content {
+        padding: 15px;
+    }
+    
+    .timeline-container {
+        padding-left: 20px;
+    }
+    
+    .timeline-line {
+        left: 4px;
+    }
+    
+    .timeline-marker {
+        left: -22px;
+    }
+    
+    .expand-arrow {
+        top: 10px;
+    }
+    
+    .modal-schedule-toggle {
+        flex-direction: column;
+    }
+    
+    .top-bar {
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+    
+    .current-task-title {
+        width: 100%;
+        margin-bottom: 5px;
+    }
+}
