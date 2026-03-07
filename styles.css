@@ -481,8 +481,8 @@ MOBILE IMAGE HANDLING
     /* 2. Сохранить десктопный стиль для картинок в "ТЕКУЩАЯ ЗАДАЧА" */
     #current-task-container .content-image {
         float: right !important;
-        width: 25% !important;
-        max-width: 150px !important;
+        width: 30% !important;
+        max-width: 180px !important;
         margin: 5px 15px 10px 0 !important;
         display: block !important;
     }
