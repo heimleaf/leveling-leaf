@@ -420,6 +420,14 @@ body {
 }
 
 /* Responsive */
+@media (max-width: 768px) {
+    .content-image {
+        float: none;
+        width: 100%;
+        max-width: 100%;
+        margin: 10px 0 15px 0;
+    }
+
 /* Убираем мобильные стили для картинок внутри текущей задачи */
 @media (max-width: 768px) {
     #current-task-container .content-image {
