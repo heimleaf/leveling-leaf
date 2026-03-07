@@ -252,7 +252,7 @@ document.addEventListener('DOMContentLoaded', function() {
     updateCurrentTaskDisplay();
     
     // Re-check every minute
-    setInterval(updateCurrentTaskDisplay, 60000);
+    // setInterval(updateCurrentTaskDisplay, 60000);
     
     /* ---------------------------------------------------------------------
        SCROLL REVEAL ANIMATION
