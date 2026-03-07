@@ -419,17 +419,6 @@ body {
     padding: 20px;
 }
 
-/* =============================================================================
-FIX: Images in Current Task block - always desktop style
-============================================================================= */
-#current-task-container .content-image {
-    float: left !important;           /* Прикрепление к левому краю */
-    width: 25% !important;            /* 1/4 ширины контейнера */
-    max-width: 150px !important;      /* Ограничение по ширине */
-    margin: 5px 15px 10px 0 !important; /* Отступы: сверху, справа, снизу, слева */
-    display: block !important;
-}
-
 /* Responsive */
 @media (max-width: 768px) {
     .content-image {
@@ -438,16 +427,6 @@ FIX: Images in Current Task block - always desktop style
         max-width: 100%;
         margin: 10px 0 15px 0;
     }
-
-/* Убираем мобильные стили для картинок внутри текущей задачи */
-@media (max-width: 768px) {
-    #current-task-container .content-image {
-        float: left !important;
-        width: 25% !important;
-        max-width: 150px !important;
-        margin: 5px 15px 10px 0 !important;
-    }
-}
     
     .expandable-content {
         padding: 0 15px;
