@@ -1,103 +1,117 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Расписание | Личный архив</title>
     <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&display=swap"
+        rel="stylesheet">
 </head>
+
 <body class="dark-theme">
     <div class="document-page">
-        
+
         <!-- Top Bar: Current Task Title + Theme Toggle -->
         <div class="top-bar">
             <h2 class="section-title current-task-title">/// ТЕКУЩАЯ ЗАДАЧА</h2>
             <button id="theme-toggle" class="theme-toggle">НА СВЕТ</button>
         </div>
-        
+
         <!-- Current Task Container (always visible) -->
         <section id="current-task-container" class="doc-section current-task-section">
             <div id="current-task-content"></div>
         </section>
 
-        <!-- Button to Open Full Schedule Modal -->
-        <div class="schedule-controls">
-            <button id="open-schedule-modal" class="schedule-btn">открыть полное расписание</button>
-        </div>
+
 
         <!-- MODAL OVERLAY -->
-        <div id="schedule-modal" class="modal-overlay">
+        <div id="schedule-modal">
             <div class="modal-content">
                 <div class="modal-header">
                     <span class="modal-title">/// ПОЛНОЕ РАСПИСАНИЕ</span>
-                    <button id="close-modal" class="modal-close" aria-label="Закрыть">×</button>
+                   
                 </div>
                 <div class="modal-schedule-toggle">
-                    <button id="modal-weekday" class="schedule-btn active">расписание для будней</button>
+                    <button id="modal-weekday" class="schedule-btn active">расписание для
+                        будней</button>
                     <button id="modal-weekend" class="schedule-btn">расписание для выходных</button>
                 </div>
                 <div class="modal-timeline-container">
                     <div class="timeline-container">
                         <div class="timeline-line"></div>
-                        
+
                         <!-- WEEKDAY ITEMS -->
-                        <div class="timeline-item expandable" data-day-type="weekday" data-time-start="06:00" data-time-end="09:00">
+                        <div class="timeline-item expandable" data-day-type="weekday"
+                            data-time-start="06:00" data-time-end="09:00">
                             <div class="timeline-marker"></div>
                             <div class="timeline-content">
                                 <span class="timeline-date">06:00–09:00</span>
                                 <span class="timeline-event">УТРЕННИЙ БЛОК</span>
-                                <span class="timeline-note">Подъём, медитация, планирование дня.</span>
+                                <span class="timeline-note">Подъём, медитация, планирование
+                                    дня.</span>
                             </div>
                             <span class="expand-arrow">▼</span>
                             <div class="expandable-content">
                                 <div class="np-columns">
-                                    <p><strong>Процедура:</strong> Подъём без повторного засыпания. 10 минут медитации.</p>
-                                    <p><strong>План:</strong> Проверка почты, синхронизация календаря.</p>
+                                    <p><strong>Процедура:</strong> Подъём без повторного засыпания.
+                                        10 минут медитации.</p>
+                                    <p><strong>План:</strong> Проверка почты, синхронизация
+                                        календаря.</p>
                                     <img src="leon.png" alt="Demo" class="content-image">
                                     <p><em>Важно:</em> Не открывать соцсети до завершения блока.</p>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="timeline-item expandable" data-day-type="weekday" data-time-start="09:00" data-time-end="12:00">
+                        <div class="timeline-item expandable" data-day-type="weekday"
+                            data-time-start="09:00" data-time-end="12:00">
                             <div class="timeline-marker"></div>
                             <div class="timeline-content">
                                 <span class="timeline-date">09:00–12:00</span>
                                 <span class="timeline-event">РАБОЧАЯ СЕССИЯ #1</span>
-                                <span class="timeline-note">Глубокая работа над приоритетными задачами.</span>
+                                <span class="timeline-note">Глубокая работа над приоритетными
+                                    задачами.</span>
                             </div>
                             <span class="expand-arrow">▼</span>
                             <div class="expandable-content">
                                 <div class="np-columns">
-                                    <p><strong>Фокус:</strong> Одна ключевая задача без прерываний.</p>
-                                    <p><strong>Метод:</strong> Pomodoro 50/10, отключение уведомлений.</p>
+                                    <p><strong>Фокус:</strong> Одна ключевая задача без прерываний.
+                                    </p>
+                                    <p><strong>Метод:</strong> Pomodoro 50/10, отключение
+                                        уведомлений.</p>
                                     <img src="leon.png" alt="Demo" class="content-image">
                                     <p>По завершении — фиксация результата в журнале.</p>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="timeline-item non-expandable" data-day-type="weekday" data-time-start="12:00" data-time-end="14:00">
+                        <div class="timeline-item non-expandable" data-day-type="weekday"
+                            data-time-start="12:00" data-time-end="14:00">
                             <div class="timeline-marker"></div>
                             <div class="timeline-content">
                                 <span class="timeline-date">12:00–14:00</span>
                                 <span class="timeline-event">ОБЕД И ОТДЫХ</span>
-                                <span class="timeline-note">Приём пищи, прогулка, перезагрузка. Без рабочих задач.</span>
+                                <span class="timeline-note">Приём пищи, прогулка, перезагрузка. Без
+                                    рабочих задач.</span>
                             </div>
                         </div>
 
-                        <div class="timeline-item expandable" data-day-type="weekday" data-time-start="14:00" data-time-end="18:00">
+                        <div class="timeline-item expandable" data-day-type="weekday"
+                            data-time-start="14:00" data-time-end="18:00">
                             <div class="timeline-marker"></div>
                             <div class="timeline-content">
                                 <span class="timeline-date">14:00–18:00</span>
                                 <span class="timeline-event">РАБОЧАЯ СЕССИЯ #2</span>
-                                <span class="timeline-note">Вторичные задачи, коммуникация, документация.</span>
+                                <span class="timeline-note">Вторичные задачи, коммуникация,
+                                    документация.</span>
                             </div>
                             <span class="expand-arrow">▼</span>
                             <div class="expandable-content">
                                 <div class="np-columns">
-                                    <p><strong>Задачи:</strong> Ответы на письма, встречи, отчёты.</p>
+                                    <p><strong>Задачи:</strong> Ответы на письма, встречи, отчёты.
+                                    </p>
                                     <p><strong>Инструменты:</strong> Календарь, трекер задач.</p>
                                     <img src="leon.png" alt="Demo" class="content-image">
                                     <p>За 15 минут до конца — подготовка списка на завтра.</p>
@@ -105,17 +119,20 @@
                             </div>
                         </div>
 
-                        <div class="timeline-item non-expandable" data-day-type="weekday" data-time-start="18:00" data-time-end="21:00">
+                        <div class="timeline-item non-expandable" data-day-type="weekday"
+                            data-time-start="18:00" data-time-end="21:00">
                             <div class="timeline-marker"></div>
                             <div class="timeline-content">
                                 <span class="timeline-date">18:00–21:00</span>
                                 <span class="timeline-event">ВЕЧЕРНИЙ БЛОК</span>
-                                <span class="timeline-note">Обучение, хобби, подготовка к следующему дню.</span>
+                                <span class="timeline-note">Обучение, хобби, подготовка к следующему
+                                    дню.</span>
                             </div>
                         </div>
 
                         <!-- WEEKEND ITEMS -->
-                        <div class="timeline-item expandable" data-day-type="weekend" data-time-start="07:00" data-time-end="09:00">
+                        <div class="timeline-item expandable" data-day-type="weekend"
+                            data-time-start="07:00" data-time-end="09:00">
                             <div class="timeline-marker"></div>
                             <div class="timeline-content">
                                 <span class="timeline-date">07:00–09:00</span>
@@ -134,35 +151,40 @@
                             </div>
                         </div>
 
-                        <div class="timeline-item expandable" data-day-type="weekend" data-time-start="11:00" data-time-end="11:30">
+                        <div class="timeline-item expandable" data-day-type="weekend"
+                            data-time-start="11:00" data-time-end="11:30">
                             <div class="timeline-marker"></div>
                             <div class="timeline-content">
                                 <span class="timeline-date">11:00–11:30</span>
                                 <span class="timeline-event">АФФИРМАЦИИ</span>
-                                <span class="timeline-note">Прогулка, спорт, встреча с друзьями.</span>
+                                <span class="timeline-note">Прогулка, спорт, встреча с
+                                    друзьями.</span>
                             </div>
                             <span class="expand-arrow">▼</span>
                             <div class="expandable-content">
                                 <div class="np-columns">
-                                    <p><strong>Цель:</strong> Физическая активность или социальное взаимодействие.</p>
-                                    <p><strong>Варианты:</strong> Велосипед, парк, кафе, настольные игры.</p>
+                                    <p><strong>Цель:</strong> Физическая активность или социальное
+                                        взаимодействие.</p>
+                                    <p><strong>Варианты:</strong> Велосипед, парк, кафе, настольные
+                                        игры.</p>
                                     <img src="leon.png" alt="Demo" class="content-image">
-                                    <p>я самурай, мой путь - это стремление<br/>
-                                        я самурай, не имеющий страха перед драконом<br/>
-                                        я самурай, страх не убьёт меня<br/>
-                                        я самурай, моё тело - тело воина<br/>
-                                        я самурай, живущий день на одном зерне риса<br/>
-                                        я самурай, имеющий право заговорить с принцессой<br/>
-                                        я самурай, достойный своей жизни<br/>
-                                        я самурай, не достойный жалости<br/>
-                                        я самурай, проживающий лучший день в своей жизни.<br/>
+                                    <p>я самурай, мой путь - это стремление<br />
+                                        я самурай, не имеющий страха перед драконом<br />
+                                        я самурай, страх не убьёт меня<br />
+                                        я самурай, моё тело - тело воина<br />
+                                        я самурай, живущий день на одном зерне риса<br />
+                                        я самурай, имеющий право заговорить с принцессой<br />
+                                        я самурай, достойный своей жизни<br />
+                                        я самурай, не достойный жалости<br />
+                                        я самурай, проживающий лучший день в своей жизни.<br />
                                         я самурай, я всегда иду на страх.
                                     </p>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="timeline-item non-expandable" data-day-type="weekend" data-time-start="11:30" data-time-end="12:00">
+                        <div class="timeline-item non-expandable" data-day-type="weekend"
+                            data-time-start="11:30" data-time-end="12:00">
                             <div class="timeline-marker"></div>
                             <div class="timeline-content">
                                 <span class="timeline-date">11:30–12:00</span>
@@ -171,7 +193,8 @@
                             </div>
                         </div>
 
-<div class="timeline-item non-expandable" data-day-type="weekend" data-time-start="15:00" data-time-end="16:00">
+                        <div class="timeline-item non-expandable" data-day-type="weekend"
+                            data-time-start="15:00" data-time-end="16:00">
                             <div class="timeline-marker"></div>
                             <div class="timeline-content">
                                 <span class="timeline-date">15:00–16:00</span>
@@ -179,8 +202,9 @@
                                 <span class="timeline-note">Сделать задания на VB</span>
                             </div>
                         </div>
-                        
-                        <div class="timeline-item expandable" data-day-type="weekend" data-time-start="07:00" data-time-end="09:00">
+
+                        <div class="timeline-item expandable" data-day-type="weekend"
+                            data-time-start="07:00" data-time-end="09:00">
                             <div class="timeline-marker"></div>
                             <div class="timeline-content">
                                 <span class="timeline-date">07:00–09:00</span>
@@ -211,7 +235,7 @@
                 <div class="clipping-source">ЕЖЕДНЕВНАЯ ПРАКТИКА | УТРО</div>
                 <div class="clipping-headline">ФОКУС НА НАСТОЯЩЕМ</div>
                 <div class="clipping-text">
-                    «Я контролирую своё внимание. Каждая задача — возможность проявить мастерство. 
+                    «Я контролирую своё внимание. Каждая задача — возможность проявить мастерство.
                     Я действую осознанно, без спешки и сомнений.»
                 </div>
             </div>
@@ -219,7 +243,7 @@
                 <div class="clipping-source">ЕЖЕДНЕВНАЯ ПРАКТИКА | ВЕЧЕР</div>
                 <div class="clipping-headline">БЛАГОДАРНОСТЬ И АНАЛИЗ</div>
                 <div class="clipping-text">
-                    «Я отмечаю прогресс, а не только результат. Ошибки — данные для улучшения. 
+                    «Я отмечаю прогресс, а не только результат. Ошибки — данные для улучшения.
                     Я завершаю день с ясностью и спокойствием.»
                 </div>
             </div>
@@ -232,7 +256,7 @@
                 <div class="clipping-source">СПРАВОЧНИК | КОНТАКТЫ</div>
                 <div class="clipping-headline">ЭКСТРЕННЫЕ КАНАЛЫ СВЯЗИ</div>
                 <div class="clipping-text">
-                    При необходимости срочной координации используйте резервные каналы. 
+                    При необходимости срочной координации используйте резервные каналы.
                     Основная коммуникация — через запланированные интервалы.
                 </div>
             </div>
@@ -240,7 +264,7 @@
                 <div class="clipping-source">СПРАВОЧНИК | РЕСУРСЫ</div>
                 <div class="clipping-headline">БАЗА ЗНАНИЙ И ШАБЛОНЫ</div>
                 <div class="clipping-text">
-                    Доступ к библиотеке шаблонов отчётов, чек-листов и методических материалов. 
+                    Доступ к библиотеке шаблонов отчётов, чек-листов и методических материалов.
                     Обновляется еженедельно по пятницам.
                 </div>
             </div>
@@ -250,4 +274,5 @@
 
     <script src="script.js"></script>
 </body>
+
 </html>
