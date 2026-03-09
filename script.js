@@ -1,15 +1,15 @@
 /* =============================================================================
-SCRIPT: SCHEDULE LOGIC + THEME TOGGLE + MODAL + EXPANDABLE BLOCKS
-============================================================================= */
+   SCRIPT: SCHEDULE LOGIC + THEME TOGGLE + EXPANDABLE BLOCKS
+   ============================================================================= */
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('■ SYSTEM READY: SCHEDULE MODE ■');
-    
+    console.log('SYSTEM READY: SCHEDULE MODE');
+
     /* ---------------------------------------------------------------------
-       THEME TOGGLE - Smart Default
+       THEME TOGGLE
        --------------------------------------------------------------------- */
     var themeToggle = document.getElementById('theme-toggle');
     var body = document.body;
-    
+
     function applySmartTheme() {
         var isDesktop = window.matchMedia('(min-width: 769px)').matches;
         var now = new Date();
@@ -31,68 +31,52 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         updateToggleText();
     }
-    
+
     function updateToggleText() {
         var isLight = body.classList.contains('light-theme');
         themeToggle.textContent = isLight ? 'В ТЬМУ' : 'НА СВЕТ';
     }
-    
+
     applySmartTheme();
-    
-    themeToggle.addEventListener('click', function() {
-        if (body.classList.contains('light-theme')) {
-            body.classList.remove('light-theme');
-            body.classList.add('dark-theme');
-        } else {
-            body.classList.remove('dark-theme');
-            body.classList.add('light-theme');
-        }
-        updateToggleText();
-    });
-    
+
+    if (themeToggle) {
+        themeToggle.addEventListener('click', function() {
+            if (body.classList.contains('light-theme')) {
+                body.classList.remove('light-theme');
+                body.classList.add('dark-theme');
+            } else {
+                body.classList.remove('dark-theme');
+                body.classList.add('light-theme');
+            }
+            updateToggleText();
+        });
+    }
+
     /* ---------------------------------------------------------------------
-       MODAL LOGIC
+       SCHEDULE TOGGLE (Weekday/Weekend) - Does NOT affect Current Task
        --------------------------------------------------------------------- */
-    var openModalBtn = document.getElementById('open-schedule-modal');
-    var closeModalBtn = document.getElementById('close-modal');
-    var modal = document.getElementById('schedule-modal');
-    var modalWeekdayBtn = document.getElementById('modal-weekday');
-    var modalWeekendBtn = document.getElementById('modal-weekend');
-    
-    var modalViewType = null;
-    
-    function openModal() {
-        modal.style.display = 'flex';
-        document.body.style.overflow = 'hidden';
-        var now = new Date();
-        var isWeekend = (now.getDay() === 0 || now.getDay() === 6);
-        modalViewType = isWeekend ? 'weekend' : 'weekday';
-        updateModalButtons();
-        filterModalItems();
-    }
-    
-    function closeModal() {
-        modal.style.display = 'none';
-        document.body.style.overflow = '';
-    }
-    
-    function updateModalButtons() {
-        if (modalViewType === 'weekday') {
-            modalWeekdayBtn.classList.add('active');
-            modalWeekendBtn.classList.remove('active');
+    var scheduleWeekdayBtn = document.getElementById('schedule-weekday');
+    var scheduleWeekendBtn = document.getElementById('schedule-weekend');
+    var scheduleViewType = null;
+
+    function updateScheduleButtons() {
+        if (!scheduleWeekdayBtn || !scheduleWeekendBtn) return;
+        if (scheduleViewType === 'weekday') {
+            scheduleWeekdayBtn.classList.add('active');
+            scheduleWeekendBtn.classList.remove('active');
         } else {
-            modalWeekendBtn.classList.add('active');
-            modalWeekdayBtn.classList.remove('active');
+            scheduleWeekendBtn.classList.add('active');
+            scheduleWeekdayBtn.classList.remove('active');
         }
     }
-    
+
     function parseTimeToMinutes(timeStr) {
         var parts = timeStr.split(':');
         var hours = parseInt(parts[0], 10);
         var minutes = parseInt(parts[1], 10);
         return hours * 60 + minutes;
     }
-    
+
     function isCurrentTimeSlot(item, currentTimeInMinutes) {
         var start = item.dataset.timeStart;
         var end = item.dataset.timeEnd;
@@ -101,15 +85,15 @@ document.addEventListener('DOMContentLoaded', function() {
         var endMin = parseTimeToMinutes(end);
         return currentTimeInMinutes >= startMin && currentTimeInMinutes < endMin;
     }
-    
-    function filterModalItems() {
+
+    function filterScheduleItems() {
         var now = new Date();
         var currentMinutes = now.getHours() * 60 + now.getMinutes();
-        var modalItems = modal.querySelectorAll('.timeline-item');
+        var timelineItems = document.querySelectorAll('.schedule-section .timeline-item');
         
-        modalItems.forEach(function(item) {
+        timelineItems.forEach(function(item) {
             var itemType = item.dataset.dayType;
-            var matchesView = itemType === modalViewType;
+            var matchesView = itemType === scheduleViewType;
             
             if (matchesView) {
                 item.classList.remove('hidden');
@@ -124,46 +108,37 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
-    
-    if (openModalBtn) openModalBtn.addEventListener('click', openModal);
-    if (closeModalBtn) closeModalBtn.addEventListener('click', closeModal);
-    
-    if (modalWeekdayBtn) {
-        modalWeekdayBtn.addEventListener('click', function() {
-            modalViewType = 'weekday';
-            updateModalButtons();
-            filterModalItems();
+
+    function initScheduleView() {
+        var now = new Date();
+        var isWeekend = (now.getDay() === 0 || now.getDay() === 6);
+        scheduleViewType = isWeekend ? 'weekend' : 'weekday';
+        updateScheduleButtons();
+        filterScheduleItems();
+    }
+
+    if (scheduleWeekdayBtn) {
+        scheduleWeekdayBtn.addEventListener('click', function() {
+            scheduleViewType = 'weekday';
+            updateScheduleButtons();
+            filterScheduleItems();
         });
     }
-    
-    if (modalWeekendBtn) {
-        modalWeekendBtn.addEventListener('click', function() {
-            modalViewType = 'weekend';
-            updateModalButtons();
-            filterModalItems();
+
+    if (scheduleWeekendBtn) {
+        scheduleWeekendBtn.addEventListener('click', function() {
+            scheduleViewType = 'weekend';
+            updateScheduleButtons();
+            filterScheduleItems();
         });
     }
-    
-    if (modal) {
-        modal.addEventListener('click', function(e) {
-            if (e.target === modal) {
-                closeModal();
-            }
-        });
-    }
-    
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && modal.style.display === 'flex') {
-            closeModal();
-        }
-    });
-    
+
     /* ---------------------------------------------------------------------
-       EXPANDABLE CONTENT IN MODAL
+       EXPANDABLE CONTENT
        --------------------------------------------------------------------- */
-    var modalExpandableItems = modal ? modal.querySelectorAll('.timeline-item.expandable') : [];
-    
-    modalExpandableItems.forEach(function(item) {
+    var expandableItems = document.querySelectorAll('.timeline-item.expandable');
+
+    expandableItems.forEach(function(item) {
         item.addEventListener('click', function(e) {
             if (e.target.closest('a') || e.target.closest('input') || e.target.closest('button')) {
                 return;
@@ -171,20 +146,20 @@ document.addEventListener('DOMContentLoaded', function() {
             
             var isExpanded = item.classList.contains('expanded');
             
-            modalExpandableItems.forEach(function(i) {
+            expandableItems.forEach(function(i) {
                 if (i !== item) i.classList.remove('expanded');
             });
             
             item.classList.toggle('expanded', !isExpanded);
         });
     });
-    
+
     /* ---------------------------------------------------------------------
-       CURRENT TASK DISPLAY - FIX: Use modal items as source
+       CURRENT TASK DISPLAY - Independent from Schedule Toggle
        --------------------------------------------------------------------- */
     var currentTaskContainer = document.getElementById('current-task-container');
     var currentTaskContent = document.getElementById('current-task-content');
-    
+
     function cloneItemForCurrentTask(item) {
         var clone = item.cloneNode(true);
         clone.classList.remove('current-slot', 'hidden', 'expandable', 'non-expandable');
@@ -202,14 +177,13 @@ document.addEventListener('DOMContentLoaded', function() {
         
         var expandable = clone.querySelector('.expandable-content');
         if (expandable) {
-            expandable.style.maxHeight = '1200px';
-            expandable.style.padding = '15px';
+            expandable.style.maxHeight = '1000px';
+            expandable.style.padding = '14px';
         }
         return clone;
     }
-    
+
     function updateCurrentTaskDisplay() {
-        // FIX: Always get fresh time values
         var now = new Date();
         var dayOfWeek = now.getDay();
         var currentHour = now.getHours();
@@ -220,9 +194,7 @@ document.addEventListener('DOMContentLoaded', function() {
         var expectedType = isWeekend ? 'weekend' : 'weekday';
         
         var activeItems = [];
-        
-        // FIX: Search in modal for timeline items (they exist only there)
-        var allTimelineItems = modal ? modal.querySelectorAll('.timeline-item') : [];
+        var allTimelineItems = document.querySelectorAll('.schedule-section .timeline-item');
         
         allTimelineItems.forEach(function(item) {
             var itemType = item.dataset.dayType;
@@ -234,26 +206,29 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
         
-        // Update current task block at top
-        currentTaskContent.innerHTML = '';
-        if (activeItems.length > 0) {
-            activeItems.forEach(function(item) {
-                var cloned = cloneItemForCurrentTask(item);
-                currentTaskContent.appendChild(cloned);
-            });
-            currentTaskContainer.style.display = 'block';
-        } else {
-            currentTaskContent.innerHTML = '<p class="text-muted">Задач на текущий интервал не запланировано.</p>';
-            currentTaskContainer.style.display = 'block';
+        if (currentTaskContent) {
+            currentTaskContent.innerHTML = '';
+            if (activeItems.length > 0) {
+                activeItems.forEach(function(item) {
+                    var cloned = cloneItemForCurrentTask(item);
+                    currentTaskContent.appendChild(cloned);
+                });
+                if (currentTaskContainer) currentTaskContainer.style.display = 'block';
+            } else {
+                currentTaskContent.innerHTML = '<p class="text-muted">Задач на текущий интервал не запланировано.</p>';
+                if (currentTaskContainer) currentTaskContainer.style.display = 'block';
+            }
         }
     }
-    
-    // Initial load
+
+    /* ---------------------------------------------------------------------
+       INITIALIZATION
+       --------------------------------------------------------------------- */
+    initScheduleView();
     updateCurrentTaskDisplay();
     
-    // Re-check every minute
-    // setInterval(updateCurrentTaskDisplay, 60000);
-    
+    setInterval(updateCurrentTaskDisplay, 60000);
+
     /* ---------------------------------------------------------------------
        SCROLL REVEAL ANIMATION
        --------------------------------------------------------------------- */
@@ -261,7 +236,7 @@ document.addEventListener('DOMContentLoaded', function() {
         threshold: 0.1,
         rootMargin: '0px 0px -20px 0px'
     };
-    
+
     var observer = new IntersectionObserver(function(entries) {
         entries.forEach(function(entry) {
             if (entry.isIntersecting) {
@@ -270,7 +245,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }, observerOptions);
-    
+
     var animatedElements = document.querySelectorAll('.timeline-item, .press-clipping, .section-title');
     animatedElements.forEach(function(el) {
         el.style.opacity = '0';
@@ -278,8 +253,4 @@ document.addEventListener('DOMContentLoaded', function() {
         el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
         observer.observe(el);
     });
-    
-    var style = document.createElement('style');
-    style.textContent = '.fade-in { opacity: 1 !important; transform: translateY(0) !important; }';
-    document.head.appendChild(style);
 });
