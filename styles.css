@@ -8,10 +8,11 @@
     --color-text: #ffffff;
     --color-text-muted: #808080;
     --color-border: #333333;
-    --color-accent: #ffaa00;
-    --color-accent-light: #ffcc00;
-    --color-accent-bg: rgba(255, 170, 0, 0.15);
-    --color-accent-text: #000000;
+    --color-accent: #059669;
+    --color-accent-light: #10B981;
+    --color-accent-bg: rgba(5, 150, 105, 0.15); 
+    --color-accent-text: #ffffff;
+    --color-card-bg: #272727a1;
     
     /* Typography */
     --font-main: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -27,14 +28,15 @@
 
 body.light-theme {
     --color-bg: #ffffff;
-    --color-bg-secondary: #f5f5f5;
+    --color-bg-secondary: #f9f9f9;
     --color-text: #000000;
     --color-text-muted: #666666;
     --color-border: #cccccc;
-    --color-accent: #e69900;
-    --color-accent-light: #ffaa00;
-    --color-accent-bg: rgba(255, 170, 0, 0.25);
+    --color-accent: #059669;
+    --color-accent-light: #10B981;
+    --color-accent-bg: rgba(5, 150, 105, 0.25);
     --color-accent-text: #000000;
+    --color-card-bg: #8f8f8f2c;
 }
 
 /* =============================================================================
@@ -88,7 +90,10 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-bottom: var(--spacing-md);
+    padding-top: 6px;
+    padding-right: 10px;
+    padding-left: 10px;
+    padding-bottom: 13px;
     margin-bottom: var(--spacing-lg);
     border-bottom: 2px solid var(--color-border);
 }
@@ -161,10 +166,7 @@ body {
     gap: 8px;
 }
 
-.title-icon {
-    color: var(--color-accent);
-    font-size: 7px;
-}
+
 
 /* =============================================================================
    CURRENT TASK SECTION - HIGHLIGHTED WITH ORANGE-YELLOW
@@ -175,7 +177,7 @@ body {
 
 .current-task-section {
     border: 2px solid var(--color-accent) !important;
-
+    margin-bottom: 25px;  
 }
 
 .current-task-section .section-title {
@@ -183,9 +185,6 @@ body {
     border-bottom-color: var(--color-accent) !important;
 }
 
-.current-task-section .title-icon {
-    color: var(--color-accent-text) !important;
-}
 
 #current-task-container .timeline-item {
     border-left: 4px solid var(--color-accent) !important;
@@ -252,7 +251,7 @@ body {
 
 .timeline-item:hover {
     border-left-color: var(--color-text-muted);
-    background: rgba(255, 255, 255, 0.02);
+    background: rgba(143, 143, 143, 0.096);
 }
 
 .timeline-item.hidden {
@@ -261,7 +260,7 @@ body {
 
 .timeline-item.current-slot {
     border-left-color: var(--color-accent) !important;
-    background: var(--color-accent-bg) !important;
+    
 }
 
 .timeline-item.current-slot .timeline-marker {
@@ -272,19 +271,20 @@ body {
 /* Timeline Marker */
 .timeline-marker {
     position: absolute;
-    left: -27px;
+    left: -28px;
     top: 8px;
     width: 7px;
     height: 7px;
-    background-color: var(--color-bg);
+    background-color: var(--color-border);
     border: 1px solid var(--color-border);
     transform: rotate(45deg);
     transition: all 0.2s ease;
 }
 
+/* var(--color-accent) */
 .timeline-item:hover .timeline-marker {
-    background-color: var(--color-text);
-    border-color: var(--color-text);
+    background-color: var(--color-accent);
+    border-color: var(--color-accent);
 }
 
 /* Timeline Content */
@@ -346,21 +346,22 @@ body {
     overflow: hidden;
     transition: max-height 0.4s ease, padding 0.4s ease;
     padding: 0 var(--spacing-md);
-    background: rgba(255, 255, 255, 0.02);
-    border-left: 1px solid var(--color-border);
+    background: var(--color-card-bg);
+    
     margin-top: var(--spacing-sm);
 }
 
 .timeline-item.expanded .expandable-content {
     max-height: 1000px;
     padding: var(--spacing-md);
+   
 }
 
 .expandable-content p {
     margin-bottom: var(--spacing-sm);
     font-size: 13px;
     color: var(--color-text-muted);
-    line-height: 1.6;
+    line-height: 1;
 }
 
 .expandable-content strong {
@@ -602,3 +603,112 @@ body {
 .section-title {
     animation: fadeIn 0.4s ease forwards;
 }
+
+
+/* =============================================================================
+   NESTED LIST COMPONENT
+   ============================================================================= */
+.nested-list-container {
+    padding-left: var(--spacing-sm);
+}
+
+.nested-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    position: relative;
+}
+
+.nested-list-item {
+    position: relative;
+    padding-left: var(--spacing-md);
+    margin-bottom: var(--spacing-sm);
+}
+
+/* Вертикальная линия для всех уровней */
+.nested-list-item::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background-color: var(--color-border);
+}
+
+/* Горизонтальная линия к каждому пункту */
+.nested-list-item::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 18px;
+    width: var(--spacing-sm);
+    height: 1px;
+    background-color: var(--color-border);
+}
+
+/* Убираем линии у последнего элемента */
+.nested-list-item:last-child::before {
+    bottom: auto;
+    height: 18px;
+}
+
+/* Контент пункта списка */
+.nested-list-content {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: var(--spacing-xs) var(--spacing-sm);
+   
+    cursor: pointer;
+}
+
+.nested-list-content:hover {
+    background: rgba(255, 255, 255, 0.02);
+    border-left: 2px solid var(--color-accent);
+    margin-left: -2px;
+}
+
+.nested-list-content .title-icon {
+    color: var(--color-accent);
+    font-size: 7px;
+    flex-shrink: 0;
+}
+
+.nested-list-text {
+    color: var(--color-text);
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Вложенные уровни */
+.nested-list .nested-list {
+    margin-top: var(--spacing-xs);
+    margin-left: var(--spacing-sm);
+}
+
+/* Адаптация для светлой темы */
+body.light-theme .nested-list-content:hover {
+    background: rgba(0, 0, 0, 0.03);
+}
+
+.list-marker {
+    width: 5px;
+    height: 5px;
+    background-color: var(--color-accent);
+    border: 1px solid var(--color-accent);
+    transform: rotate(45deg);
+    transition: all 0.2s ease;
+}
+
+.head-marker {
+    width: 8px;
+    height: 8px;
+   /* background-color: var(--color-accent); */
+    border: 1px solid var(--color-accent);
+    transform: rotate(45deg);
+    transition: all 0.2s ease;
+}
+
