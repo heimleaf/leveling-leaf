@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function updateToggleText() {
         var isLight = body.classList.contains('light-theme');
-        themeToggle.textContent = isLight ? 'В ТЬМУ' : 'НА СВЕТ';
+        themeToggle.textContent = isLight ? 'ВО ТЬМУ' : 'НА СВЕТ';
     }
 
     applySmartTheme();
@@ -253,4 +253,56 @@ document.addEventListener('DOMContentLoaded', function() {
         el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
         observer.observe(el);
     });
+
+/* =============================================================================
+   NESTED LIST EXPAND/COLLAPSE FUNCTIONALITY
+   ============================================================================= */
+var nestedListItems = document.querySelectorAll('.nested-list-item');
+
+nestedListItems.forEach(function(item) {
+    var childList = item.querySelector('.nested-list');
+    var content = item.querySelector('.nested-list-content');
+    
+    if (childList && content) {
+        // Добавляем индикатор раскрытия
+        var arrow = document.createElement('span');
+        arrow.className = 'nested-list-arrow';
+        arrow.innerHTML = '▼';
+        arrow.style.cssText = 'margin-left: auto; font-size: 10px; color: var(--color-text-muted); transition: transform 0.3s ease;';
+        content.appendChild(arrow);
+        
+        // Скрываем вложенные списки по умолчанию
+        childList.style.maxHeight = '0';
+        childList.style.overflow = 'hidden';
+        childList.style.transition = 'max-height 0s ease';
+        
+        content.addEventListener('click', function() {
+            var isExpanded = childList.style.maxHeight !== '0px';
+            
+            // Закрываем другие списки на этом уровне
+      /*      var siblings = item.parentElement.querySelectorAll('.nested-list-item');
+            siblings.forEach(function(sibling) {
+                var siblingChild = sibling.querySelector('.nested-list');
+                var siblingArrow = sibling.querySelector('.nested-list-arrow');
+                if (siblingChild && siblingChild !== childList) {
+                    siblingChild.style.maxHeight = '0';
+                    if (siblingArrow) siblingArrow.style.transform = 'rotate(0deg)';
+                }
+            }); */
+            
+            // Переключаем текущий
+            if (isExpanded) {
+                childList.style.maxHeight = '0';
+                arrow.style.transform = 'rotate(0deg)';
+            } else {
+                childList.style.maxHeight = '500px';
+                arrow.style.transform = 'rotate(180deg)';
+            }
+        });
+    }
+});
+
+
+
+
 });
