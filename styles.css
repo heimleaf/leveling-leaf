@@ -829,13 +829,13 @@ CONTENT LISTS & TABLES
 .data-table td {
     color: var(--color-text);
 }
-
+/*
 .data-table tr:hover td {
     background-color: var(--color-bg-secondary);
     color: var(--color-accent-light);
     transition: all 0.2s ease;
 }
-
+*/
 .data-table tr:last-child td {
     border-bottom: none;
 }
