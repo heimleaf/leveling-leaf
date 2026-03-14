@@ -624,9 +624,9 @@ CUSTOM TEXT MODULE
     transition: border-color 0.3s ease;
 }
 
-.text-module:hover {
+/* .text-module:hover {
     border-left-color: var(--color-accent);
-}
+} */
 
 .text-module-title {
     font-size: 13px;
