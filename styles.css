@@ -646,10 +646,10 @@ CUSTOM TEXT MODULE
 .text-module-content p {
     margin-bottom: var(--spacing-sm);
 }
-
+/*
 .text-module-content p:last-child {
     margin-bottom: 0;
-}
+} */
 
 
 
