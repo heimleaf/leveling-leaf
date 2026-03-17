@@ -747,3 +747,10 @@ CONTENT LISTS & TABLES
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
 }
+
+/* =============================================================================
+CUSTOM Text STYLE
+============================================================================= */
+.green-text {
+    color: var(--color-accent);
+}
